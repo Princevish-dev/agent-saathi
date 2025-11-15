@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌟 Agent Saathi – Your Companion for Good
 
 > *"Transforming discomfort into design-worthy comfort — helping users heal, grow, and create with soul."*
@@ -56,3 +57,7 @@ Agent Saathi System
    
    # Edit .env with your actual API key
    # Replace: your_google_api_key_here with your actual key
+=======
+# agent-saathi
+Agent Saathi - Your Companion for Good | Emotional Support AI | Kaggle x Google AI Agents Hackathon 2025  A modular multi-agent system for emotional support, study planning, and community impact built with Google ADK.
+>>>>>>> 883dcae1edfcbee194a602c7650327983573ff26
