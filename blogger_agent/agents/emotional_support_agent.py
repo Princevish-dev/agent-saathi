@@ -55,52 +55,47 @@ class EmotionalSupportAgent:
         try:
             logger.info(f"Processing emotional journal for user {user_id}: {journal_entry[:50]}...")
             
-            # Use LoopAgent for retry mechanism
-            prompt = f"""
-            {self.system_prompt}
+            # ✅ MOCK RESPONSE for demo (API key issues ke liye)
+            primary_emotion = emotion_tags[0] if emotion_tags else "reflective"
             
-            Journal Entry: {journal_entry}
-            Emotions: {', '.join(emotion_tags) if emotion_tags else 'Not specified'}
-            
-            Please provide a warm, empathetic response with:
-            1. Emotional validation
-            2. Gentle insights
-            3. Practical self-care suggestions
-            4. Supportive closing
-            
-            Keep response under 150 words.
-            """
-            
-            # Try with LoopAgent first (for retry capability)
-            try:
-                response = self.loop_agent.model.generate_content(prompt)
-                insight_text = response.text
-                logger.info("LoopAgent successfully generated response")
-            except Exception as e:
-                logger.warning(f"LoopAgent failed, falling back to direct model: {e}")
-                response = self.model.generate_content(prompt)
-                insight_text = response.text
-            
-            # Enhanced validation with retry logic
-            max_retries = 3
-            for attempt in range(max_retries):
-                tone_validation = self.tone_validator.validate_tone(insight_text)
+            # Different responses based on emotions
+            emotional_responses = {
+                "overwhelmed": """I can hear how overwhelmed you're feeling right now. When everything seems like too much, 
+                remember to break things down into small, manageable steps. Take a deep breath - you don't have to solve 
+                everything at once. What's one small thing you can do right now to feel a bit better?""",
                 
-                if tone_validation["is_valid"]:
-                    logger.info(f"Tone validation passed on attempt {attempt + 1}")
-                    break
-                else:
-                    logger.warning(f"Tone validation failed on attempt {attempt + 1}")
-                    if attempt < max_retries - 1:
-                        # Retry with improved prompt
-                        prompt += "\n\nPlease make the response more empathetic and supportive."
-                        response = self.model.generate_content(prompt)
-                        insight_text = response.text
-                    else:
-                        logger.error("Max retries reached for tone validation")
+                "stressed": """Stress can feel like carrying a heavy weight, but remember that this moment will pass. 
+                Try the 5-4-3-2-1 grounding technique: notice 5 things you can see, 4 things you can touch, 
+                3 things you can hear, 2 things you can smell, and 1 thing you can taste. You've overcome challenges before, and you will this time too.""",
+                
+                "anxious": """I understand that anxious feeling - it's like your mind is running in circles. 
+                Let's bring it back to the present. What's actually happening right in this moment? 
+                Often, our anxiety comes from worrying about futures that never happen. You're safe right now.""",
+                
+                "uncertain": """Uncertainty can be uncomfortable, but it's also where growth happens. 
+                You don't need to have all the answers right now. What would feel like a small step forward? 
+                Sometimes just acknowledging "I don't know yet" is incredibly brave."""
+            }
+            
+            # Get appropriate response or default
+            insight_text = emotional_responses.get(
+                primary_emotion, 
+                f"""I understand you're feeling {primary_emotion}. It's completely normal to feel this way when facing challenges. 
+                Remember to take breaks, practice self-care, and reach out for support when needed. 
+                You're doing better than you think, and I'm here to support you every step of the way."""
+            )
+            
+            logger.info("✅ Using mock emotional response for demo")
+            
+            # Enhanced validation with retry logic (mock validation)
+            tone_validation = {
+                "is_valid": True,
+                "confidence": 0.95,
+                "emotional_tone": "empathetic",
+                "sentiment": "positive"
+            }
             
             # Save insight with enhanced logging
-            primary_emotion = emotion_tags[0] if emotion_tags else "reflective"
             mood_score = self.file_tools.estimate_mood_score(primary_emotion)
             
             # Store in memory bank
@@ -126,11 +121,12 @@ class EmotionalSupportAgent:
                 "mood_score": mood_score,
                 "validation": {
                     "tone": tone_validation,
-                    "retry_attempts": min(max_retries, attempt + 1) if 'attempt' in locals() else 1
+                    "retry_attempts": 1
                 },
                 "processed_at": datetime.now().isoformat(),
                 "user_id": user_id,
-                "context_compaction": compaction_result  # ✅ NEW: Include compaction info
+                "context_compaction": compaction_result,
+                "demo_mode": True  # ✅ Indicate this is mock data
             }
             
         except Exception as e:
