@@ -1,4 +1,11 @@
+# Core Dependencies
 google-generativeai>=0.3.0
 python-dotenv>=1.0.0
-google-adk>=1.18.0
 requests>=2.25.0
+
+# Development & Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Optional: ADK for advanced features (not required for basic functionality)
+# google-adk>=1.18.0
