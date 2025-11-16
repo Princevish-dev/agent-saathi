@@ -1,13 +1,12 @@
-<<<<<<< HEAD
 # 🌟 Agent Saathi – Your Companion for Good
 
 > *"Transforming discomfort into design-worthy comfort — helping users heal, grow, and create with soul."*
 
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![ADK Compatible](https://img.shields.io/badge/ADK-Web%20Mode-green)](https://developers.google.com/assistant)
+[![ADK Concepts](https://img.shields.io/badge/ADK-10%2F15%20Concepts-green)](https://developers.google.com/assistant)
 
-A modular, multi-agent system built with Google's Agent Development Kit (ADK) that provides emotional support, study planning, community upliftment, and social storytelling with empathy and impact.
+A modular, multi-agent system built with emotional intelligence that provides compassionate support, personalized study planning, and community impact through AI companionship.
 
 ## 🎯 Vision
 
@@ -22,19 +21,19 @@ Agent Saathi System
 
 ### Core Features
 
-- **Emotional Intelligence**: Validates and enhances emotional tone in all interactions
-- **Modular Design**: Independent agents that work together seamlessly
-- **Comfort-First Approach**: Prioritizes user wellbeing in every interaction
-- **Google API Integration**: Leverages Search, Calendar, Maps, and YouTube APIs
-- **Social Impact Focus**: Designed for community upliftment and positive change
+- **🧠 Emotional Intelligence**: Validates and enhances emotional tone in all interactions
+- **🔄 LoopAgent Pattern**: Retry mechanisms for reliable responses
+- **📚 Memory Management**: Long-term emotional pattern storage with auto-compaction
+- **🔗 A2A Protocol**: Seamless inter-agent communication
+- **👁️ Observability**: Comprehensive logging and performance tracking
+- **🎯 Context Engineering**: Smart memory optimization
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - Python 3.8+
-- Google API Key
-- Google Gemini API access
+- Google API Key ([Get free API key](https://makersuite.google.com/app/apikey))
 
 ### Installation
 
@@ -42,22 +41,18 @@ Agent Saathi System
    ```bash
    git clone https://github.com/Princevish-dev/agent-saathi.git
    cd agent-saathi
+2. **Set up environment**
+   python -m venv venv
 
-## 🔑 Configuration
+# On Windows:
+venv\Scripts\activate
 
-1. **Get Google API Key:**
-   - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Create free API key
-   - Enable Gemini API
-
-2. **Setup Environment:**
-   ```bash
-   # Copy environment template
-   cp .env.example .env
-   
-   # Edit .env with your actual API key
-   # Replace: your_google_api_key_here with your actual key
-=======
-# agent-saathi
-Agent Saathi - Your Companion for Good | Emotional Support AI | Kaggle x Google AI Agents Hackathon 2025  A modular multi-agent system for emotional support, study planning, and community impact built with Google ADK.
->>>>>>> 883dcae1edfcbee194a602c7650327983573ff26
+# On Linux/Mac:
+source venv/bin/activate
+3. **Install dependencies**
+   pip install -r requirements.txt
+4. **Configure environment**
+   # Create .env file with your API key
+   echo GOOGLE_API_KEY=your_actual_api_key_here > .env
+5. **Run the system**
+   python -m blogger_agent.main
